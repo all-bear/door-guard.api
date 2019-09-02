@@ -1,14 +1,23 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
+    "removeComments": true,
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "sourceMap": true,
     "allowJs": true,
-    "target": "es5",
+    "target": "es2017",
     "outDir": ".build",
     "moduleResolution": "node",
-    "lib": ["es2017"],
-    "rootDir": "./"
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "~src/*": ["./*"]
+    },
   },
   "exclude": ["node_modules"]
 }

@@ -2,8 +2,8 @@ service:
   name: door-guard-api
 
 plugins:
-  - serverless-offline
   - serverless-plugin-typescript
+  - serverless-offline
 
 provider:
   name: aws
@@ -11,7 +11,7 @@ provider:
 
 functions:
   hello:
-    handler: handlers/hello.hello
+    handler: functions/hello.handler
     events:
       - http:
           method: get
