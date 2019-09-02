@@ -1,0 +1,19 @@
+service:
+  name: door-guard-api
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  hello:
+    handler: handlers/hello.hello
+    events:
+      - http:
+          method: get
+          path: hello
+          cors: true
