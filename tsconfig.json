@@ -6,7 +6,7 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "allowJs": true,
-    "target": "es2017",
+    "target": "es5",
     "outDir": ".build",
     "moduleResolution": "node",
     "lib": [
@@ -16,7 +16,7 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "~src/*": ["./*"]
+      "~src/*": ["./src/*"]
     },
   },
   "exclude": ["node_modules"]

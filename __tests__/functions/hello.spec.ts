@@ -1,7 +1,8 @@
-import {handler} from '~src/functions/hello';
+import { handler } from '~src/functions/hello';
+import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 
 describe('handler request', () => {
   it('should exists', () => {
-    expect("test").toBe("Hello!");
+    handler({} as APIGatewayProxyEvent, {} as Context, jest.fn());
   });
 });
