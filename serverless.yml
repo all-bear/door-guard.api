@@ -3,11 +3,37 @@ service:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-dynamodb-local
   - serverless-offline
+
+include:
+    - src/**/*  
+
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations  
 
 provider:
   name: aws
   runtime: nodejs10.x
+  environment:
+    DYNAMODB_TABLE_DEVICE_PHONE: ${self:service}-${opt:stage, self:provider.stage}-device-phone
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_DEVICE_PHONE}"
 
 functions:
   hello:
@@ -17,3 +43,24 @@ functions:
           method: get
           path: hello
           cors: true
+resources:
+  Resources:
+    DevicePhoneDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: deviceCode
+            AttributeType: S
+          -
+            AttributeName: phone
+            AttributeType: S  
+        KeySchema:
+          -
+            AttributeName: deviceCode
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_DEVICE_PHONE}          

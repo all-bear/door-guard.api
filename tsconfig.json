@@ -13,11 +13,14 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "rootDir": "./",
-    "baseUrl": "./",
+    "rootDir": ".",
+    "baseUrl": ".",
     "paths": {
       "~src/*": ["./src/*"]
     },
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": ["node_modules"]
 }
