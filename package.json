@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "test": "jest --colors",
-    "lint": "tslint --project tsconfig.json **/*.ts"
+    "lint": "tslint --project tsconfig.json --project"
   },
   "dependencies": {
     "aws-lambda": "^0.1.2",

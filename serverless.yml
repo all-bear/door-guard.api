@@ -11,6 +11,8 @@ include:
 
 custom:
   dynamodb:
+    stages:
+      - dev
     start:
       port: 8000
       inMemory: true
@@ -53,9 +55,6 @@ resources:
           -
             AttributeName: deviceCode
             AttributeType: S
-          -
-            AttributeName: phone
-            AttributeType: S  
         KeySchema:
           -
             AttributeName: deviceCode
