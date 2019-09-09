@@ -38,28 +38,19 @@ provider:
         - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_DEVICE_PHONE}"
 
 functions:
-  hello:
-    handler: src/functions/hello.handler
+  connect-device-to-phone-request:
+    handler: src/functions/connect-device-to-phone.request
     events:
       - http:
           method: get
-          path: hello
+          path: connect-device-to-phone/{deviceCode}
           cors: true
+  connect-device-to-phone-process:
+    handler: src/functions/connect-device-to-phone.process
+    events:
+      - http:
+          method: post
+          path: connect-device-to-phone/{deviceCode}
+          cors: true        
 resources:
-  Resources:
-    DevicePhoneDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: deviceCode
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: deviceCode
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE_DEVICE_PHONE}          
+  - ${file(./resources/dynamodb.yml)}        

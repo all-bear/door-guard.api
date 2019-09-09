@@ -5,7 +5,9 @@
   "main": "handler.js",
   "scripts": {
     "test": "jest --colors",
-    "lint": "tslint --project tsconfig.json --project"
+    "lint": "tslint --project tsconfig.json --project",
+    "dynamodb:install": "sls dynamodb install",
+    "dynamodb:start": "sls dynamodb start"
   },
   "dependencies": {
     "aws-lambda": "^0.1.2",

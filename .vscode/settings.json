@@ -1,0 +1,20 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.build": true,
+    "**/.dynamodb": true
+  },
+  "typescript.referencesCodeLens.enabled": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
+}

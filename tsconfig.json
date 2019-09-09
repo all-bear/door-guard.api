@@ -13,15 +13,21 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "~src/*": ["./src/*"]
-    },
+      "~src/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "src/**/*",
     "__tests__/**/*"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ],
+  "typeRoots": [
+    "src/types"
+  ]
 }
