@@ -1,11 +1,13 @@
 import { DynamoDB } from 'aws-sdk';
+import { IS_OFFLINE } from '../constants/offline';
+import { LOCAL_ENDPOINT } from '../constants/dynamodb';
 
 let options = {};
 
-if (process.env.IS_OFFLINE) {
+if (IS_OFFLINE) {
   options = {
     region: 'localhost',
-    endpoint: 'http://localhost:8000'
+    endpoint: LOCAL_ENDPOINT
   };
 }
 

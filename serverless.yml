@@ -25,6 +25,7 @@ provider:
   runtime: nodejs10.x
   environment:
     DYNAMODB_TABLE_DEVICE_PHONE: ${self:service}-${opt:stage, self:provider.stage}-device-phone
+    DYNAMODB_LOCAL_ENDPOINT: http://localhost:8000
   iamRoleStatements:
     - Effect: Allow
       Action:

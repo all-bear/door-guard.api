@@ -1,9 +1,9 @@
 import dynamodb from './dynamodb';
-import {table} from '../config/dynamodb';
+import {DEVICE_PHONE_TABLE} from '../constants/dynamodb';
 
 export const getDevicePhone = async (deviceCode: string): Promise<string> => {
   const params = {
-    TableName: table.DEVICE_PHONE,
+    TableName: DEVICE_PHONE_TABLE,
     Key: {
       deviceCode,
     }
@@ -16,7 +16,7 @@ export const getDevicePhone = async (deviceCode: string): Promise<string> => {
 
 export const setDevicePhone = (deviceCode: string, phone: string): Promise<any> => {
   const params = {
-    TableName: table.DEVICE_PHONE,
+    TableName: DEVICE_PHONE_TABLE,
     Item: {
       deviceCode,
       phone,
