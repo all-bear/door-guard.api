@@ -17,6 +17,7 @@ beforeAll(() => {
 describe('device api', () => {
   beforeEach(() => resetClient());
 
+  // TODO check is request was called at all
   it('should take device phone from database by device code', async () => {
     const deviceCode = 'test';
     const expectedPhone = '89898989'
@@ -33,6 +34,7 @@ describe('device api', () => {
     AWSMock.restore('DynamoDB.DocumentClient');
   });
 
+  // TODO check is request was called at all
   it('should set device phone into database by device code', async () => {
     const deviceCode = 'test1';
     const phone = '898989891';
