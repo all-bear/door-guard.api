@@ -1,5 +1,5 @@
-import dynamodb from './dynamodb';
-import {DEVICE_PHONE_TABLE} from '../constants/dynamodb';
+import { getClient } from './dynamodb';
+import { DEVICE_PHONE_TABLE } from '../constants/dynamodb';
 
 export const getDevicePhone = async (deviceCode: string): Promise<string> => {
   const params = {
@@ -9,7 +9,7 @@ export const getDevicePhone = async (deviceCode: string): Promise<string> => {
     }
   };
 
-  const result = await dynamodb.get(params).promise();
+  const result = await getClient().get(params).promise();
 
   return result.Item ? result.Item.phone : null;
 }
@@ -23,5 +23,5 @@ export const setDevicePhone = (deviceCode: string, phone: string): Promise<any> 
     }
   };
 
-  return dynamodb.put(params).promise();
+  return getClient().put(params).promise();
 }
