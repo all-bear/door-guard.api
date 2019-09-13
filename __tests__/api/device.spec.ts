@@ -17,38 +17,40 @@ beforeAll(() => {
 describe('device api', () => {
   beforeEach(() => resetClient());
 
-  // TODO check is request was called at all
   it('should take device phone from database by device code', async () => {
     const deviceCode = 'test';
     const expectedPhone = '89898989'
 
-    AWSMock.mock('DynamoDB.DocumentClient', 'get', (params: GetItemInput, callback: Function) => {
+    const getMock = jest.fn((params: GetItemInput, callback: Function) => {
       expect(params.TableName).toBe(DEVICE_PHONE_TABLE);
       expect(params.Key.deviceCode).toBe(deviceCode);
 
       callback(null, { Item: { phone: expectedPhone } });
     });
+    AWSMock.mock('DynamoDB.DocumentClient', 'get', getMock);
 
     expect(await getDevicePhone(deviceCode)).toBe(expectedPhone);
+    expect(getMock.mock.calls.length).toBe(1);
 
     AWSMock.restore('DynamoDB.DocumentClient');
   });
 
-  // TODO check is request was called at all
   it('should set device phone into database by device code', async () => {
     const deviceCode = 'test1';
     const phone = '898989891';
 
     const expectedParams = { deviceCode, phone };
 
-    AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: PutItemInput, callback: Function) => {
+    const putMock = jest.fn((params: PutItemInput, callback: Function) => {
       expect(params.TableName).toBe(DEVICE_PHONE_TABLE);
       expect(params.Item).toStrictEqual(expectedParams);
 
       callback(null);
     });
+    AWSMock.mock('DynamoDB.DocumentClient', 'put', putMock);
 
     await setDevicePhone(deviceCode, phone);
+    expect(putMock.mock.calls.length).toBe(1);
 
     AWSMock.restore('DynamoDB.DocumentClient');
   })
