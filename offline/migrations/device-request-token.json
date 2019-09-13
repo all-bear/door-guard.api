@@ -1,0 +1,25 @@
+{
+    "Table": {
+        "TableName": "door-guard-api-dev-request-token",
+        "KeySchema": [
+            {
+                "AttributeName": "deviceCode",
+                "KeyType": "HASH"
+            }
+        ],
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "deviceCode",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "requestToken",
+                "AttributeType": "S"
+            }
+        ],
+        "ProvisionedThroughput": {
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        }
+    }
+}
