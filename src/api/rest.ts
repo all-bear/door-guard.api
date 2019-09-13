@@ -6,10 +6,10 @@ export const wrapError = (err: Error): APIGatewayProxyResult => {
   return {
     statusCode: 500,
     body: JSON.stringify({
-      message: 'Something goes wrong', //TODO
+      message: 'Something goes wrong' // TODO
     })
-  }
-}
+  };
+};
 
 type APIGatewayProxyHandlerWrapper = (
   handler: APIGatewayProxyHandlerWorker
@@ -17,7 +17,7 @@ type APIGatewayProxyHandlerWrapper = (
 
 type APIGatewayProxyHandlerWorker = (
   event: APIGatewayProxyEvent,
-  context: Context,
+  context: Context
 ) => Promise<APIGatewayProxyResult>;
 
 export const createAPIGatewayProxyHandler: APIGatewayProxyHandlerWrapper =
@@ -28,4 +28,4 @@ export const createAPIGatewayProxyHandler: APIGatewayProxyHandlerWrapper =
       } catch (err) {
         return wrapError(err);
       }
-    }
+    };

@@ -16,7 +16,7 @@ const createClient = () => new DynamoDB.DocumentClient(options);
 
 export const resetClient = () => {
   client = null;
-}
+};
 
 export const getClient = () => {
   if (!client) {
@@ -24,4 +24,4 @@ export const getClient = () => {
   }
 
   return client;
-}
+};

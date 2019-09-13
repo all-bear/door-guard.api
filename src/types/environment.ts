@@ -5,4 +5,4 @@ declare var process: {
     DYNAMODB_LOCAL_ENDPOINT: string,
     IS_OFFLINE: boolean,
   }
-}
+};

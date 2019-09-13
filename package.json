@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --colors",
     "lint": "tslint --project tsconfig.json --project",
+    "lint:fix": "tslint --project tsconfig.json --project --fix",
     "dynamodb:install": "sls dynamodb install",
     "dynamodb:start": "sls dynamodb start"
   },

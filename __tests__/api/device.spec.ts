@@ -21,7 +21,7 @@ describe('device api', () => {
 
   it('should take device phone from database by device code', async () => {
     const deviceCode = 'test';
-    const expectedPhone = '89898989'
+    const expectedPhone = '89898989';
 
     const getMock = jest.fn((params: GetItemInput, callback: Function) => {
       expect(params.TableName).toBe(DEVICE_PHONE_TABLE);
