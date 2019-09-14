@@ -7,6 +7,7 @@ const DYNAMODB_TABLE_DEVICE_REQUEST_TOKEN = 'DYNAMODB_TABLE_DEVICE_REQUEST_TOKEN
 
 describe('device api', () => {
   let deviceApi;
+  // tslint:disable-next-line:variable-name
   let AWSMock;
   let AWS;
 

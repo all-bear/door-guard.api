@@ -43,9 +43,9 @@ export const isRequestTokenValid = async (deviceCode: string, requestToken: stri
 };
 
 const createDevice = (phone: string): Device => ({
-  deviceCode: uuid(),
-  requestToken: uuid(),
   phone,
+  deviceCode: uuid(),
+  requestToken: uuid()
 });
 
 const saveDevice = async (device: Device) => {
@@ -70,10 +70,10 @@ const saveDevice = async (device: Device) => {
         }
       }
     ]
-  }
+  };
 
   await getClient().transactWrite(params).promise();
-}
+};
 
 export const generateDevice = async (phone: string): Promise<Device> => {
   const device = createDevice(phone);
@@ -81,4 +81,4 @@ export const generateDevice = async (phone: string): Promise<Device> => {
   await saveDevice(device);
 
   return device;
-}
+};
