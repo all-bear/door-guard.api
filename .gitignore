@@ -1,3 +1,4 @@
 .build
 .dynamodb
+.serverless
 node_modules

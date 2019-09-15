@@ -1,7 +1,9 @@
-import { getClient } from './dynamodb';
+import { getClient as getDynamodbClient } from './dynamodb';
+import { getClient as getIotClient } from './iot';
 import { DEVICE_PHONE_TABLE, DEVICE_REQUEST_TOKEN_TABLE } from '../constants/dynamodb';
 import { Device } from '../types/device';
 import { v4 as uuid } from 'uuid';
+import { Iot } from 'aws-sdk';
 
 export const getDevicePhone = async (deviceCode: string): Promise<string> => {
 
@@ -12,7 +14,7 @@ export const getDevicePhone = async (deviceCode: string): Promise<string> => {
     }
   };
 
-  const result = await getClient().get(params).promise();
+  const result = await getDynamodbClient().get(params).promise();
 
   return result.Item ? result.Item.phone : null;
 };
@@ -26,7 +28,7 @@ export const setDevicePhone = async (deviceCode: string, phone: string): Promise
     }
   };
 
-  await getClient().put(params).promise();
+  await getDynamodbClient().put(params).promise();
 };
 
 export const isRequestTokenValid = async (deviceCode: string, requestToken: string): Promise<boolean> => {
@@ -37,7 +39,7 @@ export const isRequestTokenValid = async (deviceCode: string, requestToken: stri
     }
   };
 
-  const result = await getClient().get(params).promise();
+  const result = await getDynamodbClient().get(params).promise();
 
   return result.Item ? result.Item.requestToken === requestToken : false;
 };
@@ -72,13 +74,28 @@ const saveDevice = async (device: Device) => {
     ]
   };
 
-  await getClient().transactWrite(params).promise();
+  await getDynamodbClient().transactWrite(params).promise();
 };
+
+const registerDevice = async (device: Device) => {
+  const params = {
+    thingName: device.deviceCode,
+    attributePayload: {
+      attributes: {
+        isDoorOpened: '0',
+        requestToken: device.requestToken,
+      }
+    }
+  }
+
+  await getIotClient().createThing(params).promise();
+}
 
 export const generateDevice = async (phone: string): Promise<Device> => {
   const device = createDevice(phone);
 
   await saveDevice(device);
+  await registerDevice(device);
 
   return device;
 };

@@ -1,3 +1,5 @@
+org: olbirjukov
+app: door-guard-api
 service:
   name: door-guard-api
 
@@ -38,6 +40,12 @@ provider:
         - dynamodb:DeleteItem
       Resource: 
         - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_DEVICE_PHONE}"
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_DEVICE_REQUEST_TOKEN}"
+    - Effect: Allow
+      Action:
+        - iot:CreateThing
+      Resource:
+        - "*"    
 
 functions:
   connect-device-to-phone-request:
@@ -53,6 +61,13 @@ functions:
       - http:
           method: post
           path: connect-device-to-phone/{deviceCode}
-          cors: true        
+          cors: true    
+  create-device:
+    handler: src/functions/create-device.handler
+    events:
+      - http:
+          method: post
+          path: create-device
+          cors: true            
 resources:
-  - ${file(./resources/dynamodb.yml)}        
+  - ${file(./resources/dynamodb.yml)}
